@@ -1,39 +1,20 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-
-import config from '../../config.json'
+import { useEffect } from 'react'
+import { useActions } from '../../hooks/useAction'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 import './CardList.scss'
 
-interface ICard {
-   categories: string[]
-   title: 'string'
-   authors: string[]
-   imageLink: string | null
-}
-
-interface ICards extends Array<ICard> { }
-
 export const CardList: React.FC = () => {
-   const [cards, setCards] = useState<ICards | null>(null)
-   const [totalItems, setTotalItems] = useState<number | null>(null)
+   const { cards } = useTypedSelector(store => store.card)
+   const { fetchCards } = useActions()
 
    useEffect(() => {
-      axios.get(`https://www.googleapis.com/books/v1/volumes?q=${'flowers'}+intitle:keyes&key=${config.APITestKey}`).then(req => {
-         const data: any = req.data
-         setCards(data.items.map((item: any) => ({
-            'categories': item.volumeInfo.categories || ['-'],
-            'title': item.volumeInfo.title,
-            'authors': item.volumeInfo.authors,
-            'imageLink': item.volumeInfo.imageLinks?.thumbnail || null
-         })))
-         setTotalItems(data.totalItems)
-      }).catch((e) => console.log(e.message))
-   }, [])
+      fetchCards()
+   }, [fetchCards])
 
    return (
       <div className='card-list'>
-         <p>{`Found ${totalItems} results`}</p>
+         <p>{`Found ${'totalItems'} results`}</p>
          <div className='card-list__grid grid'>
             {cards?.map((card, index) => (
                <div key={index} className='grid__card card'>
