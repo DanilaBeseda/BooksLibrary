@@ -3,14 +3,14 @@ import config from '../../config.json'
 import { Dispatch } from "react";
 import { CardAction, CardActionTypes } from "../../types/card";
 
-export const fetchCards = () => {
+export const fetchCards = (title: string) => {
    return async (dispatch: Dispatch<CardAction>) => {
       try {
          //todo laoder
          //todo laoder
          //todo laoder
 
-         const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${'flowers'}+intitle:keyes&key=${config.APITestKey}`)
+         const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}+intitle:keyes&key=${config.APITestKey}`)
          const data = res.data.items.map((item: any) => ({
             'categories': item.volumeInfo.categories || ['-'],
             'title': item.volumeInfo.title,

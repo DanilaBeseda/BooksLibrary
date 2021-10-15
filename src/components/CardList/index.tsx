@@ -7,10 +7,14 @@ import './CardList.scss'
 export const CardList: React.FC = () => {
    const { cards } = useTypedSelector(store => store.card)
    const { fetchCards } = useActions()
+   const { title } = useTypedSelector(state => state.search)
 
    useEffect(() => {
-      fetchCards()
-   }, [fetchCards])
+      if (title) {
+         fetchCards(title)
+         console.log('render')
+      }
+   }, [title])
 
    return (
       <div className='card-list'>
@@ -22,8 +26,8 @@ export const CardList: React.FC = () => {
                      <img src={card.imageLink || 'https://images.unsplash.com/photo-1599508704512-2f19efd1e35f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cXVlc3Rpb258ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'} alt='book' />
                   </div>
                   <h4 className='card__categories'>{card.categories?.map((category, index) => <span key={index}>{category}</span>)}</h4>
-                  <h3>{card.title}</h3>
-                  <h4>{card.authors.map((author, index) => <span key={index}>{author}</span>)}</h4>
+                  <h3>{card.title.length > 64 ? `${card.title.slice(0, 64)}...` : card.title}</h3>
+                  <h4 className='card__authors'>{card.authors.slice(0, 3).map((author, index) => <span key={index}>{author}</span>)}</h4>
                </div>
             ))}
          </div>
