@@ -13,12 +13,14 @@ export const fetchCards = (title: string, category: string) => {
 
          const res: any = await axios.get(`${url}q=${q}&key=${config.APITestKey}`)
 
-         const data = res.data.items.map((item: any) => ({
-            'categories': item.volumeInfo.categories || ['-'],
-            'title': item.volumeInfo.title,
-            'authors': item.volumeInfo.authors,
-            'imageLink': item.volumeInfo.imageLinks?.thumbnail || null
-         }))
+         const data = res.data.items
+            ? res.data.items.map((item: any) => ({
+               'categories': item.volumeInfo.categories || ['-'],
+               'title': item.volumeInfo.title,
+               'authors': item.volumeInfo.authors,
+               'imageLink': item.volumeInfo.imageLinks?.thumbnail || null
+            }))
+            : null
 
          dispatch({ type: CardActionTypes.FETCH_CARDS, payload: data })
          dispatch({ type: CardActionTypes.FETCH_TOTAL_ITEMS, payload: res.data.totalItems })
