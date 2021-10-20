@@ -1,5 +1,6 @@
 export enum CardActionTypes {
-   FETCH_CARDS = 'FETCH_CARDS'
+   FETCH_CARDS = 'FETCH_CARDS',
+   FETCH_TOTAL_ITEMS = 'FETCH_TOTAL_ITEMS'
 }
 
 interface Card {
@@ -11,6 +12,7 @@ interface Card {
 
 export interface CardState {
    cards: Array<Card> | null
+   totalItems: number
 }
 
 interface fetchCardsAction {
@@ -18,4 +20,9 @@ interface fetchCardsAction {
    payload: Array<Card>
 }
 
-export type CardAction = fetchCardsAction
+interface fetchTotalItemsAction {
+   type: CardActionTypes.FETCH_TOTAL_ITEMS,
+   payload: number
+}
+
+export type CardAction = fetchCardsAction | fetchTotalItemsAction

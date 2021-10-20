@@ -11,6 +11,7 @@ export const fetchCards = (title: string) => {
          //todo laoder
 
          const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}+intitle:keyes&key=${config.APITestKey}`)
+         console.log(res.data)
          const data = res.data.items.map((item: any) => ({
             'categories': item.volumeInfo.categories || ['-'],
             'title': item.volumeInfo.title,
@@ -18,7 +19,7 @@ export const fetchCards = (title: string) => {
             'imageLink': item.volumeInfo.imageLinks?.thumbnail || null
          }))
          dispatch({ type: CardActionTypes.FETCH_CARDS, payload: data })
-         //todo dispatch totalItems
+         dispatch({ type: CardActionTypes.FETCH_TOTAL_ITEMS, payload: res.data.totalItems })
       } catch (e) {
          //todo error
          //todo error

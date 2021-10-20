@@ -5,20 +5,19 @@ import { useTypedSelector } from '../../hooks/useTypedSelector'
 import './CardList.scss'
 
 export const CardList: React.FC = () => {
-   const { cards } = useTypedSelector(store => store.card)
    const { fetchCards } = useActions()
+   const { cards, totalItems } = useTypedSelector(store => store.card)
    const { title } = useTypedSelector(state => state.search)
 
    useEffect(() => {
       if (title) {
          fetchCards(title)
-         console.log('render')
       }
    }, [title])
 
    return (
       <div className='card-list'>
-         <p>{`Found ${'totalItems'} results`}</p>
+         <p>{`Found ${totalItems} results`}</p>
          <div className='card-list__grid grid'>
             {cards?.map((card, index) => (
                <div key={index} className='grid__card card'>
