@@ -1,6 +1,8 @@
 export enum CardActionTypes {
    FETCH_CARDS = 'FETCH_CARDS',
-   FETCH_TOTAL_ITEMS = 'FETCH_TOTAL_ITEMS'
+   FETCH_TOTAL_ITEMS = 'FETCH_TOTAL_ITEMS',
+   SET_CARD_ERROR = 'SET_CARD_ERROR',
+   SET_LOADER = 'SET_LOADER'
 }
 
 interface Card {
@@ -13,6 +15,8 @@ interface Card {
 export interface CardState {
    cards: Array<Card> | null
    totalItems: number
+   error: string
+   loading: boolean
 }
 
 interface fetchCardsAction {
@@ -25,4 +29,14 @@ interface fetchTotalItemsAction {
    payload: number
 }
 
-export type CardAction = fetchCardsAction | fetchTotalItemsAction
+interface setCardErrorAction {
+   type: CardActionTypes.SET_CARD_ERROR,
+   payload: string
+}
+
+interface showLoaderAction {
+   type: CardActionTypes.SET_LOADER,
+   payload: boolean
+}
+
+export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction
