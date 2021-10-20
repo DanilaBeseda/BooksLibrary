@@ -5,7 +5,8 @@ const initialState: CardState = {
    totalItems: 0,
    error: '',
    loading: false,
-   category: 'all'
+   category: 'all',
+   sortingMethod: 'relevance'
 }
 
 export const card = (state = initialState, action: CardAction): CardState => {
@@ -20,6 +21,8 @@ export const card = (state = initialState, action: CardAction): CardState => {
          return { ...state, loading: action.payload }
       case CardActionTypes.SET_CATEGORY:
          return { ...state, category: action.payload }
+      case CardActionTypes.SET_SORTING_METHOD:
+         return { ...state, sortingMethod: action.payload }
       default:
          return state
    }

@@ -3,13 +3,13 @@ import config from '../../config.json'
 import { Dispatch } from "react";
 import { CardAction, CardActionTypes } from "../../types/card";
 
-export const fetchCards = (title: string, category: string) => {
+export const fetchCards = (title: string, category: string, sortingMethod: string) => {
    return async (dispatch: Dispatch<CardAction>) => {
       dispatch(showLoader(true))
       try {
          const url = 'https://www.googleapis.com/books/v1/volumes?'
          const urlCategory = category === 'all' ? '' : `+subject:${category}`
-         const q = `${title}+intitle:${title}` + urlCategory
+         const q = `${title}+intitle:${title}` + urlCategory + `&orderBy=${sortingMethod}`
 
          const res: any = await axios.get(`${url}q=${q}&key=${config.APITestKey}`)
 
@@ -38,5 +38,10 @@ export const showLoader = (payload: boolean): CardAction => ({
 
 export const setCategory = (payload: string): CardAction => ({
    type: CardActionTypes.SET_CATEGORY,
+   payload
+})
+
+export const setSortyngMethod = (payload: string): CardAction => ({
+   type: CardActionTypes.SET_SORTING_METHOD,
    payload
 })

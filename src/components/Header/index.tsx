@@ -4,9 +4,9 @@ import './Header.scss'
 
 export const Header: React.FC = () => {
    const categories: string[] = ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
-   const sortingTypes: string[] = ['relevance', 'newest']
+   const sortingMethods: string[] = ['relevance', 'newest']
    const [inputValue, setInputValue] = useState<string>('')
-   const { changeBookTitle, setCategory } = useActions()
+   const { changeBookTitle, setCategory, setSortyngMethod } = useActions()
 
    function inputHandler(e: React.ChangeEvent<HTMLInputElement>): void {
       setInputValue(e.target.value)
@@ -20,6 +20,10 @@ export const Header: React.FC = () => {
 
    function categorySelectHandler(e: React.ChangeEvent<HTMLSelectElement>): void {
       setCategory(categories[e.target.selectedIndex])
+   }
+
+   function sortSelectHandler(e: React.ChangeEvent<HTMLSelectElement>): void {
+      setSortyngMethod(sortingMethods[e.target.selectedIndex])
    }
 
    return (
@@ -41,8 +45,8 @@ export const Header: React.FC = () => {
             </select>
 
             <p>Sorting by</p>
-            <select>
-               {sortingTypes.map((item, index) => (
+            <select onChange={sortSelectHandler}>
+               {sortingMethods.map((item, index) => (
                   <option key={index} value={index}>{item}</option>
                ))}
             </select>

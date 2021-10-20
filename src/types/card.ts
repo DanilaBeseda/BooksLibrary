@@ -3,7 +3,8 @@ export enum CardActionTypes {
    FETCH_TOTAL_ITEMS = 'FETCH_TOTAL_ITEMS',
    SET_CARD_ERROR = 'SET_CARD_ERROR',
    SET_LOADER = 'SET_LOADER',
-   SET_CATEGORY = 'SET_CATEGORY'
+   SET_CATEGORY = 'SET_CATEGORY',
+   SET_SORTING_METHOD = 'SET_SORTING_METHOD'
 }
 
 interface Card {
@@ -18,7 +19,8 @@ export interface CardState {
    totalItems: number
    error: string
    loading: boolean
-   category: string
+   category: string,
+   sortingMethod: string
 }
 
 interface fetchCardsAction {
@@ -46,4 +48,9 @@ interface setCategoryAction {
    payload: string
 }
 
-export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction | setCategoryAction
+interface setSortingMethodAction {
+   type: CardActionTypes.SET_SORTING_METHOD
+   payload: string
+}
+
+export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction | setCategoryAction | setSortingMethodAction
