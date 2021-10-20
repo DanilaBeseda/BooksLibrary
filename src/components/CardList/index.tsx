@@ -27,7 +27,7 @@ export const CardList: React.FC = () => {
                   </div>
                   <h4 className='card__categories'>{card.categories?.map((category, index) => <span key={index}>{category}</span>)}</h4>
                   <h3>{card.title.length > 64 ? `${card.title.slice(0, 64)}...` : card.title}</h3>
-                  <h4 className='card__authors'>{card.authors.slice(0, 3).map((author, index) => <span key={index}>{author}</span>)}</h4>
+                  <h4 className='card__authors'>{card.authors?.slice(0, 3).map((author, index) => <span key={index}>{author}</span>)}</h4>
                </div>
             ))}
          </div>

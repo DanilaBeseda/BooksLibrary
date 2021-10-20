@@ -1,4 +1,4 @@
-export enum SeachActionTypes {
+export enum SearchActionTypes {
    CHANGE_BOOK_TITLE = 'CHANGE_BOOK_TITLE',
    CHOOSE_BOOK_CATEGORY = 'CHOOSE_BOOK_CATEGORY',
    CHOOSE_BOOK_SORTING_TYPE = 'CHOOSE_BOOK_SORTING_TYPE'
@@ -11,17 +11,17 @@ export interface SearchState {
 }
 
 interface ChangeBookNameAction {
-   type: SeachActionTypes.CHANGE_BOOK_TITLE
+   type: SearchActionTypes.CHANGE_BOOK_TITLE
    payload: string
 }
 
 interface ChooseBookCategoryAction {
-   type: SeachActionTypes.CHOOSE_BOOK_CATEGORY
+   type: SearchActionTypes.CHOOSE_BOOK_CATEGORY
    payload: string
 }
 
 interface ChooseBookSortingType {
-   type: SeachActionTypes.CHOOSE_BOOK_SORTING_TYPE
+   type: SearchActionTypes.CHOOSE_BOOK_SORTING_TYPE
    payload: string
 }
 

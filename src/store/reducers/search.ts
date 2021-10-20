@@ -1,4 +1,4 @@
-import { SearchAction, SearchState, SeachActionTypes } from "../../types/search"
+import { SearchAction, SearchState, SearchActionTypes } from "../../types/search"
 
 const initialState: SearchState = {
    title: '',
@@ -8,7 +8,7 @@ const initialState: SearchState = {
 
 export const search = (state = initialState, action: SearchAction): SearchState => {
    switch (action.type) {
-      case SeachActionTypes.CHANGE_BOOK_TITLE:
+      case SearchActionTypes.CHANGE_BOOK_TITLE:
          return { ...state, title: action.payload }
       default:
          return state
