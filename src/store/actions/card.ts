@@ -5,10 +5,9 @@ import { CardAction, CardActionTypes } from "../../types/card";
 
 export const fetchCards = (title: string) => {
    return async (dispatch: Dispatch<CardAction>) => {
+      dispatch(showLoader(true))
       try {
-         dispatch(showLoader(true))
-
-         const res: any = await axios.get(`https://www.googleapis.com/boks/v1/volumes?q=${title}+intitle:keyes&key=${config.APITestKey}`)
+         const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}+intitle:keyes&key=${config.APITestKey}`)
 
          const data = res.data.items.map((item: any) => ({
             'categories': item.volumeInfo.categories || ['-'],
@@ -22,6 +21,7 @@ export const fetchCards = (title: string) => {
       } catch (e: any) {
          dispatch({ type: CardActionTypes.SET_CARD_ERROR, payload: e.message })
       }
+      dispatch(showLoader(false))
    }
 }
 
