@@ -8,12 +8,13 @@ export const CardList: React.FC = () => {
    const { fetchCards } = useActions()
    const { cards, totalItems } = useTypedSelector(store => store.card)
    const { title } = useTypedSelector(state => state.search)
+   const { category } = useTypedSelector(state => state.card)
 
    useEffect(() => {
       if (title) {
-         fetchCards(title)
+         fetchCards(title, category)
       }
-   }, [title])
+   }, [title, category])
 
    return (
       <div className='card-list'>

@@ -4,7 +4,8 @@ const initialState: CardState = {
    cards: null,
    totalItems: 0,
    error: '',
-   loading: false
+   loading: false,
+   category: 'all'
 }
 
 export const card = (state = initialState, action: CardAction): CardState => {
@@ -17,6 +18,8 @@ export const card = (state = initialState, action: CardAction): CardState => {
          return { ...state, error: action.payload }
       case CardActionTypes.SET_LOADER:
          return { ...state, loading: action.payload }
+      case CardActionTypes.SET_CATEGORY:
+         return { ...state, category: action.payload }
       default:
          return state
    }

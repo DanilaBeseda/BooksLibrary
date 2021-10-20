@@ -5,8 +5,8 @@ import './Header.scss'
 export const Header: React.FC = () => {
    const categories: string[] = ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
    const sortingTypes: string[] = ['relevance', 'newest']
-   const [inputValue, setInputValue] = useState('')
-   const { changeBookTitle } = useActions()
+   const [inputValue, setInputValue] = useState<string>('')
+   const { changeBookTitle, setCategory } = useActions()
 
    function inputHandler(e: React.ChangeEvent<HTMLInputElement>): void {
       setInputValue(e.target.value)
@@ -16,6 +16,10 @@ export const Header: React.FC = () => {
       if (e.key === 'Enter') {
          changeBookTitle(inputValue)
       }
+   }
+
+   function categorySelectHandler(e: React.ChangeEvent<HTMLSelectElement>): void {
+      setCategory(categories[e.target.selectedIndex])
    }
 
    return (
@@ -30,7 +34,7 @@ export const Header: React.FC = () => {
          />
          <div className='header__row'>
             <p>Categories</p>
-            <select>
+            <select onChange={categorySelectHandler}>
                {categories.map((item, index) => (
                   <option key={index} value={index}>{item}</option>
                ))}
