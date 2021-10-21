@@ -5,21 +5,31 @@ import { useTypedSelector } from '../../hooks/useTypedSelector'
 import './CardList.scss'
 
 export const CardList: React.FC = () => {
-   const { fetchCards } = useActions()
-   const { cards, totalItems } = useTypedSelector(store => store.card)
+   const pagination: number = 20
+   const { fetchCards, LoadMoreCards } = useActions()
+   const { cards, totalItems, category, sortingMethod, lastUrlParams, startIndex } = useTypedSelector(store => store.card)
    const { title } = useTypedSelector(state => state.search)
-   const { category, sortingMethod } = useTypedSelector(state => state.card)
+   const cls = ['load-more']
 
    useEffect(() => {
       if (title) {
-         fetchCards(title, category, sortingMethod)
+         fetchCards(title, category, sortingMethod, pagination)
       }
    }, [title, category, sortingMethod])
+
+   function clickBtnHandler(e: React.MouseEvent<HTMLButtonElement>): void {
+      LoadMoreCards(lastUrlParams, cards, startIndex, pagination, totalItems)
+   }
+
+   if (startIndex + pagination >= totalItems) {
+      cls.push('invisible')
+   }
 
    return (
       <div className='card-list'>
          <p>{`Found ${totalItems} results`}</p>
          <div className='card-list__grid grid'>
+
             {cards?.map((card, index) => (
                <div key={index} className='grid__card card'>
                   <div className='card__image'>
@@ -30,7 +40,9 @@ export const CardList: React.FC = () => {
                   <h4 className='card__authors'>{card.authors?.slice(0, 3).map((author, index) => <span key={index}>{author}</span>)}</h4>
                </div>
             ))}
+
          </div>
+         {totalItems ? <button className={cls.join(' ')} onClick={clickBtnHandler}>Load More</button> : null}
       </div>
    )
 }

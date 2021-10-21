@@ -1,12 +1,14 @@
 import { CardAction, CardActionTypes, CardState } from "../../types/card"
 
 const initialState: CardState = {
-   cards: null,
+   cards: [],
    totalItems: 0,
    error: '',
    loading: false,
    category: 'all',
-   sortingMethod: 'relevance'
+   sortingMethod: 'relevance',
+   lastUrlParams: '',
+   startIndex: 0
 }
 
 export const card = (state = initialState, action: CardAction): CardState => {
@@ -23,6 +25,12 @@ export const card = (state = initialState, action: CardAction): CardState => {
          return { ...state, category: action.payload }
       case CardActionTypes.SET_SORTING_METHOD:
          return { ...state, sortingMethod: action.payload }
+      case CardActionTypes.SET_LAST_URL_PARAMS:
+         return { ...state, lastUrlParams: action.payload }
+      case CardActionTypes.ADD_MORE_CARDS:
+         return { ...state, cards: action.payload }
+      case CardActionTypes.SET_START_INDEX:
+         return { ...state, startIndex: action.payload }
       default:
          return state
    }

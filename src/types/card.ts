@@ -4,10 +4,13 @@ export enum CardActionTypes {
    SET_CARD_ERROR = 'SET_CARD_ERROR',
    SET_LOADER = 'SET_LOADER',
    SET_CATEGORY = 'SET_CATEGORY',
-   SET_SORTING_METHOD = 'SET_SORTING_METHOD'
+   SET_SORTING_METHOD = 'SET_SORTING_METHOD',
+   SET_LAST_URL_PARAMS = 'SET_LAST_URL_PARAMS',
+   ADD_MORE_CARDS = 'ADD_MORE_CARDS',
+   SET_START_INDEX = 'SET_START_INDEX'
 }
 
-interface Card {
+export interface Card {
    categories: string[]
    title: 'string'
    authors: string[]
@@ -15,12 +18,14 @@ interface Card {
 }
 
 export interface CardState {
-   cards: Array<Card> | null
+   cards: Array<Card>
    totalItems: number
    error: string
    loading: boolean
    category: string,
-   sortingMethod: string
+   sortingMethod: string,
+   lastUrlParams: string,
+   startIndex: number
 }
 
 interface fetchCardsAction {
@@ -53,4 +58,19 @@ interface setSortingMethodAction {
    payload: string
 }
 
-export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction | setCategoryAction | setSortingMethodAction
+interface setLastUrlParamsAction {
+   type: CardActionTypes.SET_LAST_URL_PARAMS
+   payload: string
+}
+
+interface addMoreCardsAction {
+   type: CardActionTypes.ADD_MORE_CARDS
+   payload: Card[]
+}
+
+interface setStartIndexAction {
+   type: CardActionTypes.SET_START_INDEX
+   payload: number
+}
+
+export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction | setCategoryAction | setSortingMethodAction | setLastUrlParamsAction | addMoreCardsAction | setStartIndexAction
