@@ -54,7 +54,7 @@ export const LoadMoreCards = (urlParams: string, cards: Card[], startIndex: numb
    return async (dispatch: Dispatch<CardAction>) => {
       dispatch(showLoader(true))
       try {
-         const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${urlParams}&startIndex=${8}&key=${config.APITestKey}`)
+         const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${urlParams}&startIndex=${startIndex}&key=${config.APITestKey}`)
          const data = [...cards, ...getData(res.data.items)]
 
          dispatch({ type: CardActionTypes.ADD_MORE_CARDS, payload: data })
