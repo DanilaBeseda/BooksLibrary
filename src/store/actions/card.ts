@@ -67,3 +67,7 @@ export const LoadMoreCards = (urlParams: string, cards: Card[], startIndex: numb
       dispatch(showLoader(false))
    }
 }
+
+export const clearError = (): CardAction => ({
+   type: CardActionTypes.CLEAR_ERROR
+})

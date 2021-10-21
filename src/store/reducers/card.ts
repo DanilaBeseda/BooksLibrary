@@ -31,6 +31,8 @@ export const card = (state = initialState, action: CardAction): CardState => {
          return { ...state, cards: action.payload }
       case CardActionTypes.SET_START_INDEX:
          return { ...state, startIndex: action.payload }
+      case CardActionTypes.CLEAR_ERROR:
+         return { ...state, error: '' }
       default:
          return state
    }

@@ -7,7 +7,8 @@ export enum CardActionTypes {
    SET_SORTING_METHOD = 'SET_SORTING_METHOD',
    SET_LAST_URL_PARAMS = 'SET_LAST_URL_PARAMS',
    ADD_MORE_CARDS = 'ADD_MORE_CARDS',
-   SET_START_INDEX = 'SET_START_INDEX'
+   SET_START_INDEX = 'SET_START_INDEX',
+   CLEAR_ERROR = 'CLEAR_ERROR'
 }
 
 export interface Card {
@@ -73,4 +74,8 @@ interface setStartIndexAction {
    payload: number
 }
 
-export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction | setCategoryAction | setSortingMethodAction | setLastUrlParamsAction | addMoreCardsAction | setStartIndexAction
+interface clearErrorAction {
+   type: CardActionTypes.CLEAR_ERROR
+}
+
+export type CardAction = fetchCardsAction | fetchTotalItemsAction | setCardErrorAction | showLoaderAction | setCategoryAction | setSortingMethodAction | setLastUrlParamsAction | addMoreCardsAction | setStartIndexAction | clearErrorAction

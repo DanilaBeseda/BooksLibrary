@@ -6,8 +6,8 @@ import './CardList.scss'
 
 export const CardList: React.FC = () => {
    const pagination: number = 20
-   const { fetchCards, LoadMoreCards } = useActions()
-   const { cards, totalItems, category, sortingMethod, lastUrlParams, startIndex } = useTypedSelector(store => store.card)
+   const { fetchCards, LoadMoreCards, clearError } = useActions()
+   const { cards, totalItems, category, sortingMethod, lastUrlParams, startIndex, error } = useTypedSelector(store => store.card)
    const { title } = useTypedSelector(state => state.search)
    const cls = ['load-more']
 
@@ -16,6 +16,13 @@ export const CardList: React.FC = () => {
          fetchCards(title, category, sortingMethod, pagination)
       }
    }, [title, category, sortingMethod])
+
+   useEffect(() => {
+      if (error) {
+         alert(error)
+      }
+      clearError()
+   }, [error])
 
    function clickBtnHandler(e: React.MouseEvent<HTMLButtonElement>): void {
       LoadMoreCards(lastUrlParams, cards, startIndex, pagination, totalItems)
