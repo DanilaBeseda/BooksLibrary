@@ -6,7 +6,8 @@ export enum CardActionTypes {
    SET_LAST_URL_PARAMS = 'SET_LAST_URL_PARAMS',
    ADD_MORE_CARDS = 'ADD_MORE_CARDS',
    SET_START_INDEX = 'SET_START_INDEX',
-   CLEAR_ERROR = 'CLEAR_ERROR'
+   CLEAR_ERROR = 'CLEAR_ERROR',
+   SET_ACTIVE_CARD = 'SET_ACTIVE_CARD'
 }
 
 export interface Card {
@@ -14,6 +15,9 @@ export interface Card {
    title: 'string'
    authors: string[]
    imageLink: string | null
+   description: string
+   previewLink: string
+   id: string
 }
 
 export interface CardState {
@@ -21,8 +25,9 @@ export interface CardState {
    totalItems: number
    error: string
    loading: boolean
-   lastUrlParams: string,
+   lastUrlParams: string
    startIndex: number
+   activeCard: Card | null
 }
 
 interface FetchCardsAction {
@@ -64,4 +69,9 @@ interface ClearErrorAction {
    type: CardActionTypes.CLEAR_ERROR
 }
 
-export type CardAction = FetchCardsAction | FetchTotalItemsAction | SetCardErrorAction | ShowLoaderAction | SetLastUrlParamsAction | AddMoreCardsAction | SetStartIndexAction | ClearErrorAction
+interface SetActiveCardAction {
+   type: CardActionTypes.SET_ACTIVE_CARD
+   payload: Card | null
+}
+
+export type CardAction = FetchCardsAction | FetchTotalItemsAction | SetCardErrorAction | ShowLoaderAction | SetLastUrlParamsAction | AddMoreCardsAction | SetStartIndexAction | ClearErrorAction | SetActiveCardAction

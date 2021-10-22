@@ -1,31 +1,23 @@
-import { useEffect } from 'react'
+import { useHistory } from 'react-router'
 import { useActions } from '../../hooks/useAction'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
+import { Card } from '../../types/card'
 
 import './CardList.scss'
 
-export const CardList: React.FC = () => {
-   const pagination: number = 20
-   const { fetchCards, LoadMoreCards, clearError } = useActions()
-   const { cards, totalItems, lastUrlParams, startIndex, error } = useTypedSelector(store => store.card)
-   const { title, category, sortingMethod } = useTypedSelector(state => state.search)
+export const CardList: React.FC<{ pagination: number }> = ({ pagination }) => {
+   const { LoadMoreCards, setActiveCard } = useActions()
+   const { cards, totalItems, lastUrlParams, startIndex } = useTypedSelector(store => store.card)
+   const history = useHistory()
    const cls = ['load-more']
 
-   useEffect(() => {
-      if (title) {
-         fetchCards(title, category, sortingMethod, pagination)
-      }
-   }, [title, category, sortingMethod])
-
-   useEffect(() => {
-      if (error) {
-         alert(error)
-      }
-      clearError()
-   }, [error])
-
-   function clickBtnHandler(e: React.MouseEvent<HTMLButtonElement>): void {
+   function clickBtnHandler(): void {
       LoadMoreCards(lastUrlParams, cards, startIndex, pagination, totalItems)
+   }
+
+   function clickCardHandler(card: Card): void {
+      setActiveCard(card)
+      history.push(`/${card.id}`)
    }
 
    if (startIndex + pagination >= totalItems) {
@@ -38,7 +30,11 @@ export const CardList: React.FC = () => {
          <div className='card-list__grid grid'>
 
             {cards?.map((card, index) => (
-               <div key={index} className='grid__card card'>
+               <div
+                  key={index}
+                  className='grid__card card'
+                  onClick={() => clickCardHandler(card)}
+               >
                   <div className='card__image'>
                      <img src={card.imageLink || 'https://images.unsplash.com/photo-1599508704512-2f19efd1e35f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cXVlc3Rpb258ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'} alt='book' />
                   </div>

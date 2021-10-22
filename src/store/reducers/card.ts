@@ -6,7 +6,8 @@ const initialState: CardState = {
    error: '',
    loading: false,
    lastUrlParams: '',
-   startIndex: 0
+   startIndex: 0,
+   activeCard: null
 }
 
 export const card = (state = initialState, action: CardAction): CardState => {
@@ -27,6 +28,8 @@ export const card = (state = initialState, action: CardAction): CardState => {
          return { ...state, startIndex: action.payload }
       case CardActionTypes.CLEAR_ERROR:
          return { ...state, error: '' }
+      case CardActionTypes.SET_ACTIVE_CARD:
+         return { ...state, activeCard: action.payload }
       default:
          return state
    }

@@ -9,7 +9,10 @@ function getData(items: any): Card[] {
          'categories': item.volumeInfo.categories || ['-'],
          'title': item.volumeInfo.title,
          'authors': item.volumeInfo.authors,
-         'imageLink': item.volumeInfo.imageLinks?.thumbnail || null
+         'imageLink': item.volumeInfo.imageLinks?.thumbnail || null,
+         'description': item.volumeInfo.description,
+         'previewLink': item.volumeInfo.previewLink,
+         'id': item.id
       }))
       : []
    return data
@@ -20,7 +23,7 @@ export const fetchCards = (title: string, category: string, sortingMethod: strin
       dispatch(showLoader(true))
       try {
          const urlCategory = category === 'all' ? '' : `+subject:${category}`
-         const q = `${title}+intitle:${title}` + urlCategory + `&orderBy=${sortingMethod}` + `&maxResults=${pagination}`
+         const q = `${title}+intitle:${title}${urlCategory}&orderBy=${sortingMethod}&maxResults=${pagination}`
 
          const res: any = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${q}&key=${config.APITestKey}`)
          const data = getData(res.data.items)
@@ -60,4 +63,9 @@ export const LoadMoreCards = (urlParams: string, cards: Card[], startIndex: numb
 
 export const clearError = (): CardAction => ({
    type: CardActionTypes.CLEAR_ERROR
+})
+
+export const setActiveCard = (payload: Card | null): CardAction => ({
+   type: CardActionTypes.SET_ACTIVE_CARD,
+   payload
 })
