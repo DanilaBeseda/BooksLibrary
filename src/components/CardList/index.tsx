@@ -7,8 +7,8 @@ import './CardList.scss'
 export const CardList: React.FC = () => {
    const pagination: number = 20
    const { fetchCards, LoadMoreCards, clearError } = useActions()
-   const { cards, totalItems, category, sortingMethod, lastUrlParams, startIndex, error } = useTypedSelector(store => store.card)
-   const { title } = useTypedSelector(state => state.search)
+   const { cards, totalItems, lastUrlParams, startIndex, error } = useTypedSelector(store => store.card)
+   const { title, category, sortingMethod } = useTypedSelector(state => state.search)
    const cls = ['load-more']
 
    useEffect(() => {

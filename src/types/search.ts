@@ -1,28 +1,28 @@
 export enum SearchActionTypes {
-   CHANGE_BOOK_TITLE = 'CHANGE_BOOK_TITLE',
-   CHOOSE_BOOK_CATEGORY = 'CHOOSE_BOOK_CATEGORY',
-   CHOOSE_BOOK_SORTING_TYPE = 'CHOOSE_BOOK_SORTING_TYPE'
+   SET_TITLE = 'SET_TITLE',
+   SET_CATEGORY = 'SET_CATEGORY',
+   SET_SORTING_METHOD = 'SET_SORTING_METHOD'
 }
 
 export interface SearchState {
    title: string
    category: string
-   sortingType: string
+   sortingMethod: string
 }
 
-interface ChangeBookNameAction {
-   type: SearchActionTypes.CHANGE_BOOK_TITLE
+interface SetTitleAction {
+   type: SearchActionTypes.SET_TITLE
    payload: string
 }
 
-interface ChooseBookCategoryAction {
-   type: SearchActionTypes.CHOOSE_BOOK_CATEGORY
+interface SetCategoryAction {
+   type: SearchActionTypes.SET_CATEGORY
    payload: string
 }
 
-interface ChooseBookSortingType {
-   type: SearchActionTypes.CHOOSE_BOOK_SORTING_TYPE
+interface SetSortingMethodAction {
+   type: SearchActionTypes.SET_SORTING_METHOD
    payload: string
 }
 
-export type SearchAction = ChangeBookNameAction | ChooseBookCategoryAction | ChooseBookSortingType
+export type SearchAction = SetTitleAction | SetCategoryAction | SetSortingMethodAction

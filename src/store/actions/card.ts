@@ -40,16 +40,6 @@ export const showLoader = (payload: boolean): CardAction => ({
    payload
 })
 
-export const setCategory = (payload: string): CardAction => ({
-   type: CardActionTypes.SET_CATEGORY,
-   payload
-})
-
-export const setSortyngMethod = (payload: string): CardAction => ({
-   type: CardActionTypes.SET_SORTING_METHOD,
-   payload
-})
-
 export const LoadMoreCards = (urlParams: string, cards: Card[], startIndex: number, pagination: number, totalItems: number) => {
    return async (dispatch: Dispatch<CardAction>) => {
       dispatch(showLoader(true))
