@@ -2,7 +2,7 @@ import { CardList } from "./components/CardList";
 import { Header } from "./components/Header";
 import { Loader } from "./components/Loader";
 import { useTypedSelector } from "./hooks/useTypedSelector";
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { Card } from "./components/Card";
 import { useEffect } from "react";
 import { useActions } from "./hooks/useAction";
@@ -10,7 +10,7 @@ import { useActions } from "./hooks/useAction";
 function App() {
   const pagination: number = 20
   const { loading } = useTypedSelector(state => state.card)
-  const { error } = useTypedSelector(state => state.card)
+  const { error, cards } = useTypedSelector(state => state.card)
   const { title, category, sortingMethod } = useTypedSelector(state => state.search)
   const { fetchCards, clearError } = useActions()
 
@@ -36,7 +36,7 @@ function App() {
           <CardList pagination={pagination} />
         </Route>
         <Route path='/:id'>
-          <Card />
+          {cards[0] ? <Card /> : <Redirect to='/' />}
         </Route>
       </Switch>
 

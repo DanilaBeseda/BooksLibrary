@@ -12,6 +12,12 @@ code {
   font-family: "Nunito", sans-serif;
 }
 
+.container {
+  max-width: 1440px;
+  padding: 10px 20px;
+  margin: 0 auto;
+}
+
 //-reset styles--------------------------------------------------------
 html {
   box-sizing: border-box;
