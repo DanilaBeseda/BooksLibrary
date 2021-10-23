@@ -14,6 +14,7 @@ export const Card = () => {
             <h4 className='dscr__category'>{category}</h4>
             <h3 className='dscr__title'>{title}</h3>
             <h4 className='dscr__authors'>{activeCard?.authors?.map((author, index) => <span key={index}>{author}</span>)}</h4>
+            <a href={activeCard?.previewLink} target='_blank' rel="noreferrer">Watch preview</a>
             <p className='dscr__description'>{activeCard?.description}</p>
          </div>
       </div>
